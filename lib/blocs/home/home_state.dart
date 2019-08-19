@@ -18,8 +18,6 @@ class HomeLoading extends HomeState{
 }
 
 class HomeLoaded extends HomeState{
-//  final List<Visitor> visitor;
-//  HomeLoaded(this.visitor) : super([visitor]);
 
   @override
   String toString() {

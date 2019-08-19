@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:visitor_manager/models/models.dart';
 import 'package:visitor_manager/pages/home.dart';
 import 'package:bloc/bloc.dart';
 import 'package:visitor_manager/blocs/blocs.dart';
 import 'package:visitor_repository/visitor_repository.dart';
 
 import 'blocs/simple_bloc_delegate.dart';
+import 'pages/register_screen.dart';
 
 void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
@@ -46,6 +48,7 @@ class VisitorApp extends StatelessWidget {
           display1: TextStyle(color: Colors.white),
           subhead: TextStyle(color: Colors.white)
         ),
+        inputDecorationTheme: InputDecorationTheme(labelStyle: TextStyle(color: Theme.of(context).accentColor)),
         iconTheme: IconThemeData(color: Colors.grey),
         primaryColor: const Color(0xFF1C306D),
         accentColor: const Color(0xFFFFAD32),
@@ -55,16 +58,15 @@ class VisitorApp extends StatelessWidget {
               return BlocBuilder<AuthenticationBloc, AuthenticationState>(
                 builder: (context, state) {
                   if (state is Authenticated) {
-                    final todosBloc = BlocProvider.of<VisitorsBloc>(context);
-//                    return Home();
-                      MultiBlocProvider(
-                      providers:[
-                      BlocProvider<HomeBloc>(
-                        builder: (context) => HomeBloc(),
-                      ),
-                      ]  ,
-                      child: Home(),
-                    );
+                    return Home();
+//                      MultiBlocProvider(
+//                      providers:[
+//                      BlocProvider<HomeBloc>(
+//                        builder: (context) => HomeBloc(),
+//                      ),
+//                      ]  ,
+//                      child: Home(),
+//                    );
                   }
                   if (state is UnAuthenticated) {
                     return Center(
@@ -78,11 +80,11 @@ class VisitorApp extends StatelessWidget {
             '/checkIn': (context) {
               final todosBloc = BlocProvider.of<VisitorsBloc>(context);
               return RegisterScreen(
-                onSave: (task, note) {
-                  todosBloc.dispatch(
-                    AddVisitors(Visitor(task, note: note)),
-                  );
-                },
+//                onSave: (task, note) {
+//                  todosBloc.dispatch(
+//                    AddVisitors(Visitor(task, note: note)),
+//                  );
+//                },
                 isEditing: false,
               );
             },

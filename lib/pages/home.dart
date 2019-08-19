@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:visitor_manager/assets.dart';
 import 'package:visitor_manager/blocs/blocs.dart';
+import 'package:visitor_manager/models/models.dart';
 import 'package:visitor_manager/pages/settings.dart';
 
 class Home extends StatefulWidget {
@@ -21,7 +22,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    final homeBloc = BlocProvider.of<HomeBloc>(context);
 
     final backgroundImage = Image.asset(ImageAssets.backgroundImage,
       fit: BoxFit.cover,
@@ -36,7 +36,9 @@ class _HomeState extends State<Home> {
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 60.0),
-            child: TextFormField(controller: _mobileTextEditingController, style: Theme.of(context).textTheme.subhead, maxLength: 10,buildCounter: (BuildContext context, { int currentLength, int maxLength, bool isFocused }) => null, keyboardType: TextInputType.phone, decoration: InputDecoration(icon: Icon(Icons.phone_android, color: Theme.of(context).iconTheme.color,), labelText: "Mobile", labelStyle: TextStyle(color: Theme.of(context).accentColor,decorationColor: Theme.of(context).accentColor)),),
+            child: TextFormField(controller: _mobileTextEditingController,
+              style: Theme.of(context).textTheme.subhead, maxLength: 10,
+              buildCounter: (BuildContext context, { int currentLength, int maxLength, bool isFocused }) => null, keyboardType: TextInputType.phone, decoration: InputDecoration(icon: Icon(Icons.phone_android, color: Theme.of(context).iconTheme.color,), labelText: "Mobile", labelStyle: TextStyle(color: Theme.of(context).accentColor,decorationColor: Theme.of(context).accentColor)),),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -54,7 +56,11 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                onPressed: (){},
+                onPressed: (){
+
+
+
+                },
               ),
 
               FlatButton(
@@ -86,9 +92,6 @@ class _HomeState extends State<Home> {
       ),
     );
 
-    return
-      BlocBuilder<HomeBloc, HomeState>(
-    builder: (context, activeTab) {
     return Scaffold(
     body: Stack(
     fit: StackFit.expand,
@@ -98,6 +101,5 @@ class _HomeState extends State<Home> {
     ],
     ),
     );
-    });
   }
 }

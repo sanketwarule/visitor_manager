@@ -7,13 +7,13 @@ typedef OnSaveCallback = Function(String name, String mobile, String email, Stri
 class RegisterScreen extends StatefulWidget {
   final bool isEditing;
   final OnSaveCallback onSave;
-  final Visitor todo;
+  final Visitor visitor;
 
   RegisterScreen({
     Key key,
     @required this.onSave,
     @required this.isEditing,
-    this.todo,
+    this.visitor,
   }) : super(key: key);
 
   @override
@@ -23,8 +23,8 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _task;
-  String _note;
+  String _mobile,_name,_email,_host, _purpose, _checkIn,_checkOut, _date;
+
 
   bool get isEditing => widget.isEditing;
 
@@ -45,26 +45,75 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: isEditing ? widget.todo.task : '',
+                initialValue: isEditing ? widget.visitor.name : '',
+                maxLines: 1,
                 autofocus: !isEditing,
-                style: textTheme.headline,
-                decoration: InputDecoration(
-                  hintText: 'What needs to be done?',
-                ),
-                validator: (val) {
-                  return val.trim().isEmpty ? 'Please enter some text' : null;
-                },
-                onSaved: (value) => _task = value,
-              ),
-              TextFormField(
-                initialValue: isEditing ? widget.todo.note : '',
-                maxLines: 10,
                 style: textTheme.subhead,
                 decoration: InputDecoration(
-                  hintText: 'Additional Notes...',
+                  labelText: 'Enter Name',
                 ),
-                onSaved: (value) => _note = value,
-              )
+                validator: (val) {
+                  return val.trim().isEmpty ? 'Please enter name' : null;
+                },
+                onSaved: (value) => _name = value,
+              ),
+              TextFormField(
+                initialValue: isEditing ? widget.visitor.mobile : '',
+                maxLines: 1,
+                maxLength: 10,
+                style: textTheme.subhead,
+                buildCounter: (BuildContext context, { int currentLength, int maxLength, bool isFocused }) => null,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  labelText: 'Mobile',
+                ),
+                validator: (val){
+                  return val.trim().isEmpty ? 'Please enter mobile' : null;
+                },
+                onSaved: (value) => _mobile = value,
+              ),
+
+              TextFormField(
+                initialValue: isEditing ? widget.visitor.email : '',
+                maxLines: 1,
+                style: textTheme.subhead,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                ),
+                validator: (val){
+                  return val.trim().isEmpty ? 'Please enter email' : null;
+                },
+                onSaved: (value) => _email = value,
+              ),
+
+              TextFormField(
+                initialValue: isEditing ? widget.visitor.host : '',
+                maxLines: 1,
+                style: textTheme.subhead,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  labelText: 'Host',
+                ),
+                validator: (val){
+                  return val.trim().isEmpty ? 'Please enter host' : null;
+                },
+                onSaved: (value) => _host = value,
+              ),
+
+              TextFormField(
+                initialValue: isEditing ? widget.visitor.purpose : '',
+                maxLines: 1,
+                style: textTheme.subhead,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  labelText: 'Purpose',
+                ),
+                validator: (val){
+                  return val.trim().isEmpty ? 'Please enter purpose' : null;
+                },
+                onSaved: (value) => _purpose = value,
+              ),
             ],
           ),
         ),
@@ -75,7 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            widget.onSave(_task, _note);
+            widget.onSave(_name, _mobile, _email, _host, _purpose, TimeOfDay.now().toString(), null, DateTime.now().toIso8601String());
             Navigator.pop(context);
           }
         },
