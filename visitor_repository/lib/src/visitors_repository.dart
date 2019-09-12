@@ -10,4 +10,6 @@ abstract class VisitorsRepository{
 
   Stream<List<Visitor>> visitors();
 
+  Future<bool> isAlreadyRegistered(Visitor visitor);
+
 }

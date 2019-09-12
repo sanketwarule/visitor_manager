@@ -7,21 +7,31 @@ abstract class HomeState extends Equatable{
   HomeState([List props = const []]) : super(props);
 }
 
-class HomeLoading extends HomeState{
+
+class HomeInitial extends HomeState{
 
   @override
   String toString() {
     // TODO: implement toString
-    return "HomeLoading";
+    return "HomeInitial";
   }
 
 }
 
-class HomeLoaded extends HomeState{
+class AlreadyRegisteredState extends HomeState{
 
   @override
   String toString() {
     // TODO: implement toString
-    return "HomeLoaded";
+    return "AlreadyRegisteredState";
+  }
+}
+
+class NavigateToRegisterState extends HomeState{
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "NavigateToRegisterState";
   }
 }

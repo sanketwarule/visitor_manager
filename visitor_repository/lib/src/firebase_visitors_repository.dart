@@ -31,4 +31,17 @@ class FirebaseVisitorsRepository implements VisitorsRepository{
     });
   }
 
+  @override
+  Future<bool> isAlreadyRegistered(Visitor visitor) async{
+    // TODO: implement isAlreadyRegistered
+//    var document = await Firestore.instance.collection('COLLECTION_NAME').document('TESTID1');
+    final QuerySnapshot result = await visitorCollection
+        .where('mobile', isEqualTo: visitor.mobile)
+        .limit(1)
+        .getDocuments();
+    final List<DocumentSnapshot> documents = result.documents;
+    return documents.length == 1;
+  }
+
+
 }

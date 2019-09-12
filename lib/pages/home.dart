@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:visitor_manager/assets.dart';
 import 'package:visitor_manager/blocs/blocs.dart';
+import 'package:visitor_manager/blocs/navigation/navigation.dart';
 import 'package:visitor_manager/models/models.dart';
+import 'package:visitor_manager/pages/register_screen.dart';
 import 'package:visitor_manager/pages/settings.dart';
+import 'package:visitor_repository/visitor_repository.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,8 +24,8 @@ class _HomeState extends State<Home> {
   }
   @override
   Widget build(BuildContext context) {
-
-
+//    final _loginFormKey = GlobalKey<FormState>();
+    final homeBloc = BlocProvider.of<HomeBloc>(context);
     final backgroundImage = Image.asset(ImageAssets.backgroundImage,
       fit: BoxFit.cover,
     );
@@ -34,11 +37,15 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           Text("Visitor App", style: TextStyle(fontFamily: 'Raleway',color: Theme.of(context).accentColor,fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,fontSize: 36.0),),
 
+          Form(
+//            key: _loginFormKey,
+            child:
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 60.0),
-            child: TextFormField(controller: _mobileTextEditingController,
+            child: TextFormField(controller: _mobileTextEditingController,validator: mobileValidator,
               style: Theme.of(context).textTheme.subhead, maxLength: 10,
               buildCounter: (BuildContext context, { int currentLength, int maxLength, bool isFocused }) => null, keyboardType: TextInputType.phone, decoration: InputDecoration(icon: Icon(Icons.phone_android, color: Theme.of(context).iconTheme.color,), labelText: "Mobile", labelStyle: TextStyle(color: Theme.of(context).accentColor,decorationColor: Theme.of(context).accentColor)),),
+          ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,9 +64,10 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 onPressed: (){
-
-
-
+//                  if(_loginFormKey.currentState.validate()) {
+                    homeBloc.dispatch(CheckIn(
+                        Visitor(_mobileTextEditingController.text.trim())));
+//                  }
                 },
               ),
 
@@ -92,14 +100,54 @@ class _HomeState extends State<Home> {
       ),
     );
 
-    return Scaffold(
-    body: Stack(
-    fit: StackFit.expand,
-    children: [
-    backgroundImage,
-    content,
-    ],
+    return
+    Scaffold(
+        body:
+
+        BlocListener<HomeBloc, HomeState>(
+          listener: (BuildContext context, HomeState state) {
+            print('inside BlocListener');
+            if (state is NavigateToRegisterState) {
+              print('inside Home Loaded');
+              Navigator.of(context).pushNamed('/checkIn');
+            }else if (state is AlreadyRegisteredState){
+              print('inside SnackBarState');
+              Scaffold.of(context).showSnackBar(SnackBar(content: Text("snackbar")));
+            }
+          },
+
+       child: BlocBuilder<HomeBloc, HomeState>(
+
+         builder:(context, state) {
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  backgroundImage,
+                  content,
+                ],
+              );
+         }
+       ),
+    ),
+      floatingActionButton: Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        FloatingActionButton(
+          child: Icon(Icons.play_arrow),
+          onPressed: () {
+            homeBloc.dispatch(CheckIn(Visitor(_mobileTextEditingController.text)));
+          },
+        ),
+      ],
     ),
     );
   }
+
+  String mobileValidator(String value){
+    if(value.isEmpty)
+      return 'Mobile number cannot be empty';
+
+  }
+
 }

@@ -124,7 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         onPressed: () {
           if (_formKey.currentState.validate()) {
             _formKey.currentState.save();
-            widget.onSave(_name, _mobile, _email, _host, _purpose, TimeOfDay.now().toString(), null, DateTime.now().toIso8601String());
+            widget.onSave(_name, _mobile, _email, _host, _purpose, TimeOfDay.now().toString(),"", DateTime.now().toIso8601String());
             Navigator.pop(context);
           }
         },

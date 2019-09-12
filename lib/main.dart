@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:visitor_manager/blocs/navigation/navigation.dart';
 import 'package:visitor_manager/models/models.dart';
 import 'package:visitor_manager/pages/home.dart';
 import 'package:bloc/bloc.dart';
@@ -34,7 +35,17 @@ class VisitorApp extends StatelessWidget {
               visitorsRepository: FirebaseVisitorsRepository(),
             )..dispatch(LoadVisitors());
           },
-          )
+          ),
+
+          BlocProvider<NavigationBloc>(builder: (context){
+            return NavigationBloc();
+          },),
+
+
+
+          BlocProvider<HomeBloc>(builder: (context){
+            return HomeBloc(visitorsRepository: FirebaseVisitorsRepository());
+          },)
 
     ],
 
@@ -59,14 +70,6 @@ class VisitorApp extends StatelessWidget {
                 builder: (context, state) {
                   if (state is Authenticated) {
                     return Home();
-//                      MultiBlocProvider(
-//                      providers:[
-//                      BlocProvider<HomeBloc>(
-//                        builder: (context) => HomeBloc(),
-//                      ),
-//                      ]  ,
-//                      child: Home(),
-//                    );
                   }
                   if (state is UnAuthenticated) {
                     return Center(
@@ -78,13 +81,13 @@ class VisitorApp extends StatelessWidget {
               );
             },
             '/checkIn': (context) {
-              final todosBloc = BlocProvider.of<VisitorsBloc>(context);
+              final visitorsBloc = BlocProvider.of<VisitorsBloc>(context);
               return RegisterScreen(
-//                onSave: (task, note) {
-//                  todosBloc.dispatch(
-//                    AddVisitors(Visitor(task, note: note)),
-//                  );
-//                },
+                onSave: (name, mobile, email, host, purpose, a,b,c) {
+                  visitorsBloc.dispatch(
+                    AddVisitors(Visitor(mobile, name: name, email: email, host: host, purpose: purpose,)),
+                  );
+                },
                 isEditing: false,
               );
             },
