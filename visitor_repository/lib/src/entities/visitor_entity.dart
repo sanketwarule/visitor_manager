@@ -7,17 +7,13 @@ class VisitorEntity extends Equatable{
   final String name;
   final String mobile;
   final String email;
-  final String host;
-  final String purpose;
-  final String checkIn;
-  final String checkOut;
-  final String date;
+  final String imageUrl;
 
-  VisitorEntity(this.id, this.name, this.mobile, this.email, this.host, this.purpose, this.checkIn, this.checkOut, this.date);
+  VisitorEntity(this.id, this.name, this.mobile, this.email, this.imageUrl);
 
   @override
   toString(){
-    return 'VisitorEntity{name : $name , mobile : $mobile , email : $email , host : $host , purpose : $purpose , check in : $checkIn , check out : $checkOut , date : $date}';
+    return 'VisitorEntity{name : $name , mobile : $mobile , email : $email , imageUrl : $imageUrl }';
   }
 
   Map<String, Object> toJson(){
@@ -26,11 +22,7 @@ class VisitorEntity extends Equatable{
       'name' : name,
       'mobile' : mobile,
       'email' : email,
-      'host' : host,
-      'purpose' : purpose,
-      'checkIn' : checkIn,
-      'checkOut' : checkOut,
-      'date' : date
+      'imageUrl' : imageUrl
     };
   }
 
@@ -40,11 +32,7 @@ class VisitorEntity extends Equatable{
       json['name'] as String,
       json['mobile'] as String,
       json['email'] as String,
-      json['host'] as String,
-      json['purpose'] as String,
-      json['checkIn'] as String,
-      json['checkOut'] as String,
-      json['date'] as String
+      json['imageUrl'] as String
     );
   }
 
@@ -54,11 +42,7 @@ class VisitorEntity extends Equatable{
         snapshot.data['name'] as String,
         snapshot.data['mobile'] as String,
         snapshot.data['email'] as String,
-        snapshot.data['host'] as String,
-        snapshot.data['purpose'] as String,
-        snapshot.data['checkIn'] as String,
-        snapshot.data['checkOut'] as String,
-        snapshot.data['date'] as String
+        snapshot.data['imageUrl'] as String
     );
   }
 
@@ -67,11 +51,7 @@ class VisitorEntity extends Equatable{
       'name' : name,
       'mobile' : mobile,
       'email' : email,
-      'host' : host,
-      'purpose' : purpose,
-      'checkIn' : checkIn,
-      'checkOut' : checkOut,
-      'date' : date
+      'imageUrl' : imageUrl
     };
   }
 }

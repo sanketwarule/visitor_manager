@@ -19,6 +19,8 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>{
     // TODO: implement mapEventToState
     if (event is AppStarted) {
       yield* _mapAppStartedToState();
+    }else if (event is AdminAuthentication){
+      yield* _mapAdminAuthenticationToState();
     }
   }
 
@@ -26,7 +28,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>{
     try {
       final isSignedIn = await _userRepository.isAuthenticated();
       if (!isSignedIn) {
-        await _userRepository.authenticate();
+        await _userRepository.guest();
       }
       final userId = await _userRepository.getUserId();
       yield Authenticated(userId);
@@ -34,6 +36,17 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState>{
       yield UnAuthenticated();
     }
 
+  }
+
+  Stream<AuthenticationState> _mapAdminAuthenticationToState() async*{
+    try{
+         await _userRepository.authenticate();
+      final userId = await _userRepository.getUserId();
+      yield Authenticated(userId); // here  diff state should be made say AuthAuthenticated
+      // listener navigate
+    }catch (_) {
+      yield UnAuthenticated();  // here  diff state should be made say AuthUnAuthenticated
+    }
   }
 
 }

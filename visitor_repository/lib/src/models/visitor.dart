@@ -8,28 +8,17 @@ class Visitor {
   final String name;
   final String mobile;
   final String email;
-  final String host;
-  final String purpose;
-  final String checkIn;
-  final String checkOut;
-  final String date;
+  final String imageUrl;
 
   Visitor(this.mobile,
       {String id,
       String name,
       String email,
-      String host,
-      String purpose,
-      String checkIn,
-      String checkOut,
-      String date})
+        String imageUrl
+      })
       : this.name = name ?? "",
         this.email = email ?? "",
-        this.host = host ?? "",
-        this.purpose = purpose ?? "",
-        this.checkIn = checkIn ?? "",
-        this.checkOut = checkOut ?? "",
-        this.date = date ?? "",
+        this.imageUrl = imageUrl ?? "",
         this.id = id;
 
   Visitor copyWith(
@@ -37,23 +26,15 @@ class Visitor {
       String name,
       String mobile,
       String email,
-      String host,
-      String purpose,
-      String checkIn,
-      String checkOut,
-      String date}) {
+      String imageUrl}) {
     return Visitor(mobile ?? this.mobile,
         name: name,
         email: email,
-        host: host,
-        purpose: purpose,
-        checkIn: checkIn,
-        checkOut: checkOut,
-        date: date);
+        imageUrl: imageUrl);
   }
 
   VisitorEntity toEntity(){
-    return VisitorEntity(id, name, mobile, email, host, purpose, checkIn, checkOut, date);
+    return VisitorEntity(id, name, mobile, email, imageUrl);
   }
 
   static Visitor fromEntity(VisitorEntity visitorEntity){
@@ -61,11 +42,7 @@ class Visitor {
     id: visitorEntity.id,
     name: visitorEntity.name,
     email: visitorEntity.email,
-    host: visitorEntity.host,
-    purpose: visitorEntity.purpose,
-    checkOut: visitorEntity.checkOut,
-    checkIn: visitorEntity.checkIn,
-    date: visitorEntity.date);
+    imageUrl: visitorEntity.imageUrl);
   }
 
   @override
@@ -75,11 +52,7 @@ class Visitor {
       name.hashCode ^
       email.hashCode ^
       id.hashCode ^
-      host.hashCode ^
-      purpose.hashCode ^
-      checkIn.hashCode ^
-      checkOut.hashCode ^
-      date.hashCode;
+      imageUrl.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -90,9 +63,5 @@ class Visitor {
           name == other.name &&
           email == other.email &&
           id == other.id &&
-          host == other.host &&
-          purpose == other.purpose &&
-          checkIn == other.checkIn &&
-          checkOut == other.checkOut &&
-          date == other.date;
+          imageUrl == other.imageUrl;
 }

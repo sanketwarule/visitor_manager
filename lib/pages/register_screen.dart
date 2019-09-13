@@ -88,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               TextFormField(
-                initialValue: isEditing ? widget.visitor.host : '',
+                initialValue: isEditing ? "should have host name from host collection" : '',
                 maxLines: 1,
                 style: textTheme.subhead,
                 keyboardType: TextInputType.phone,
@@ -102,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               TextFormField(
-                initialValue: isEditing ? widget.visitor.purpose : '',
+                initialValue: isEditing ? 'should have purpose from purpose collection' : '',
                 maxLines: 1,
                 style: textTheme.subhead,
                 keyboardType: TextInputType.phone,

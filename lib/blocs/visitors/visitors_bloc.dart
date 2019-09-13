@@ -60,6 +60,5 @@ class VisitorsBloc extends Bloc<VisitorEvent, VisitorState>{
 
  Stream<VisitorState> _mapDeleteVisitorToState(DeleteVisitor event){
     _visitorsRepository.deleteVisitor(event.visitor);
-
   }
 }

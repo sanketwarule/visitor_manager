@@ -14,3 +14,16 @@ class AppStarted extends AuthenticationEvent{
     return 'AppStarted';
   }
 }
+
+class AdminAuthentication extends AuthenticationEvent{
+  final String email;
+  final String password;
+
+  AdminAuthentication(this.email, this.password);
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return 'AdminAuthentication { email : $email , password : $password}';
+  }
+}

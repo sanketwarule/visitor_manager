@@ -25,6 +25,8 @@ dependencies:
     path: user_repository
   visitor_repository:
     path: visitor_repository
+  host_repository:
+    path: host_repository
 
 dev_dependencies:
   flutter_test:

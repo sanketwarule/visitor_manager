@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseUserRepository implements UserRepository{
 
-
   final FirebaseAuth _firebaseAuth;
 
   FirebaseUserRepository({FirebaseAuth firebaseAuth})
@@ -12,6 +11,13 @@ class FirebaseUserRepository implements UserRepository{
   @override
   Future<void> authenticate() {
     // TODO: implement authenticate
+//    getUserId() != null ? _firebaseAuth.signOut() : _firebaseAuth.signInWithEmailAndPassword(email: null, password: null)
+//    return _firebaseAuth.signInWithEmailAndPassword(email: null, password: null);
+  }
+
+  @override
+  Future<void> guest() {
+    // TODO: implement guest
     return _firebaseAuth.signInAnonymously();
   }
 

@@ -85,7 +85,7 @@ class VisitorApp extends StatelessWidget {
               return RegisterScreen(
                 onSave: (name, mobile, email, host, purpose, a,b,c) {
                   visitorsBloc.dispatch(
-                    AddVisitors(Visitor(mobile, name: name, email: email, host: host, purpose: purpose,)),
+                    AddVisitors(Visitor(mobile, name: name, email: email,)),
                   );
                 },
                 isEditing: false,

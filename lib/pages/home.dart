@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:visitor_manager/assets.dart';
 import 'package:visitor_manager/blocs/blocs.dart';
-import 'package:visitor_manager/blocs/navigation/navigation.dart';
-import 'package:visitor_manager/models/models.dart';
-import 'package:visitor_manager/pages/register_screen.dart';
 import 'package:visitor_manager/pages/settings.dart';
 import 'package:visitor_repository/visitor_repository.dart';
 
